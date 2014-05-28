@@ -31,27 +31,124 @@
 - Sample of ID stuff -- in Rails, DO NOT have a account with an ID of
   4
 
+- Empathy + tribes: easier to feel empathy for (in descending order)
+  yourself, people like you, people physically near you, people you
+  see frequently, people you see rarely, people you never see
 
-## Presentation
+- https://twitter.com/roidrage/status/469160175363194880 - "Can’t wait
+  to ship our new billing system. Making it easier for people to give
+  you money is the lifeblood of a service product."
+
+- Keep it simple, even when your ego is trying to make it complicated:
+  http://antirez.com/news/65
+
+## Structure
+
+* Story (5 min)
+* Usable system (10 min)
+* Auditing + undo (5 min)
+* Classify errors (5 min)
+* Lightning (5 min)
+
+
+## Story
+
+Starting a new project is one of my favorite things. So many things to
+play with, so much to discover. And I've made none of my usual
+mistakes, encountered none of the troubling bugs, and eased into one
+of the typical compromises.
+
+But I will. And so will you. I'll get so caught up in the learning,
+and the sheer joy of productivity (because there's nothing to work
+around) that I won't remember all the painful lessons from past
+systems.
+
+I think one of the reasons this happens is because we get separated
+from our actual job. We tell ourselves our job is about learning, or
+about building, or even about making money. And those are all great,
+and in fact they're one of the draws of the work. But they're not the
+work.
+
+The work is about solving problems -- and more importantly, __someone
+else's problems__.
+
+Our work is to help other people be awesome.
+
+"Other people" means "People not like us"
+
+    [[37 Signals is the rare company that gets to dogfood
+    their work. There are others, but in my experience they
+    wind up being few and far between.]]
+
+They don't think of problems like we do.
+
+They think of our systems like most people think of a hammer. Or a
+shovel. Or a popcorn popper.
+
+Worse, they think of a hammer that misses the nail every fifth time,
+or a popper that only works with blue corn from Nebraska and belches
+fire when given yellow from Iowa.
+
+So the real question is, when we're starting a new system: How can I
+make this the best hammer? The hammer that people love to use. The
+hammer that's predictable. The hammer that helps operations know when
+and how it's failing. The hammer that interoperates with every nail
+out there.
+
+Okay, that metaphor may be stretched a little thin.
+
+We're going to talk about a few things you can do to make your users
+happy. But also things you can do to make the jobs easier for the
+people who build, support, and sell your systems.
 
 ### Affecting lots of groups
 
 ### 1. Create a usable system
 
-One command to create a fully-stocked real-as-possible system with
-time-shifted data.
+One command to create a system with real(-ish) data.
 
-=> This is probably one of the biggest things you can do. Why?
-
-=> "If it hurts, do it all the time." (Martin Fowler link)
+This is probably one of the biggest things you can do. Why?
 
 => New people start up quickly.
 
-=> You're not afraid to experiment with your system and your data
-because it's so easy to recreate.
+=> Encourages experimentation
 
-=> Data that is too complex and hard to recreate will give you pain
-early. Hopefully that pain will induce you to change.
+=> Domain experts can define and maintain data
+
+=> Salespeople can create and customize demos.
+
+=> Your users can create demos with their own data.
+
+The hard part in this is usually the real(-ish) data requirement, even
+though it sounds easy.
+
+"I have fixtures!" you say. (Or the equivalent of fixtures in your
+system.)
+
+True, true. But could I sit a user of your domain down in front of
+fixtures and ask her to edit them?
+
+Of course not. Fixtures exist to stock you system with the bare
+minimum of data to get it working, and they work on a table by table
+basis.
+
+Data that are too complex and hard to recreate will give you pain
+early. In an ideal world that pain will induce you to change, but most
+often it means you just don't do it.
+
+"If it hurts, do it more often."
+[Martin Fowler](http://martinfowler.com/bliki/FrequencyReducesDifficulty.html)
+
+Protip: Users don't think in normalized database tables. They don't
+care about efficiency, they care about completeness.
+
+For example, a hospital nurse focused on discharges things of that
+discharge as a Thing. That Thing in her mind probably spans one or two
+dozen tables in the system. How are you ever going to make that real,
+or keep it real?
+
+How can you hope to rope domain experts like her into defining your
+data for you?
 
 => Make it easy for your sales and marketing people to create new
 systems. Or customers!
