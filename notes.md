@@ -50,8 +50,26 @@
 * Classify errors (5 min)
 * Lightning (5 min)
 
+## Themes
+
+* Emphasize side effects of practices, which wind up being the
+  benefits of good habits.
+    * If you care about logging you not only make it easier for people
+      to debug after the system is up and you've forgotten the intent
+      of everything, but you also wind up structuring your code to
+      make it easier to log the right things -- providing context,
+      reporting progress within a flow, etc.
+    * If you care about auditing you not only get auditing, but you
+      have to think about authentication/authorization structures
+      earlier than you might otherwise. You also wind up breaking your
+      flow into discrete reportable actions that you care about. And
+      it also winds up making troubleshooting easier with users, as
+      you can walk with them through the actions they took until they
+      reached the problem and help them remember their own context.
 
 ## Story
+
+### Intro
 
 Starting a new project is one of my favorite things. So many things to
 play with, so much to discover. And I've made none of my usual
@@ -74,36 +92,50 @@ else's problems__.
 
 Our work is to help other people be awesome.
 
-"Other people" means "People not like us"
-
-    [[37 Signals is the rare company that gets to dogfood
-    their work. There are others, but in my experience they
-    wind up being few and far between.]]
-
-They don't think of problems like we do.
+Other people don't think of problems like we do.
 
 They think of our systems like most people think of a hammer. Or a
 shovel. Or a popcorn popper.
 
-Worse, they think of a hammer that misses the nail every fifth time,
-or a popper that only works with blue corn from Nebraska and belches
-fire when given yellow from Iowa.
+Worse, they think of our hammer as one that misses the nail every
+fifth time, or that our popper that only works with blue corn from
+Nebraska and breaks on minor upgrades, and why does it need to be
+upgraded, anyway?
 
-So the real question is, when we're starting a new system: How can I
-make this the best hammer? The hammer that people love to use. The
-hammer that's predictable. The hammer that helps operations know when
-and how it's failing. The hammer that interoperates with every nail
-out there.
+So the question I want to talk about is this: when we're starting a
+new system, how can I make this the best hammer? The hammer that
+people love to use. The hammer that's predictable. The hammer that
+helps us know when and how it's failing. The hammer that interoperates
+with every nail out there.
 
 Okay, that metaphor may be stretched a little thin.
 
-We're going to talk about a few things you can do to make your users
-happy. But also things you can do to make the jobs easier for the
-people who build, support, and sell your systems.
+### What's our goal?
 
-### Affecting lots of groups
+We're going to talk about making your users happy. But also things you
+can do to make the jobs easier for the people who build, support, and
+sell your systems.
 
-### 1. Create a usable system
+That's too general though, how will we make this happen?
+
+The main way is to make it easy to change. Some things you may
+control, like shortening the feedback loop between an idea and someone
+using it. But others you don't, like market changes and operational
+outages. Software changes, for good reasons and bad.
+
+Easy to change also increases the opportunity for user
+empathy. Empathy was common theme at devopsdays last week: empathy
+with our co-workers, with other areas of the organization, with users.
+
+^^^^
+
+Meh... this sounds too lectur-ey. Is it needed? Maybe we just say
+we're focusing on making your system easy to change as well as
+resilient to change... malleable and resilient?
+
+^^^^
+
+### Create a usable system
 
 One command to create a system with real(-ish) data.
 
@@ -140,7 +172,10 @@ often it means you just don't do it.
 [Martin Fowler](http://martinfowler.com/bliki/FrequencyReducesDifficulty.html)
 
 Protip: Users don't think in normalized database tables. They don't
-care about efficiency, they care about completeness.
+care about efficiency, or query planners. They care a little bit about
+having to change data in multiple places (but less than you
+think). They do care about completeness, and about doing as little
+mapping from what they know to The System.
 
 For example, a hospital nurse focused on discharges things of that
 discharge as a Thing. That Thing in her mind probably spans one or two
@@ -169,7 +204,7 @@ and tools.
 => Benefit: your users will help maintain your data, and it becomes a
 common language
 
-### 3. Auditing, kinda
+### Auditing, kinda
 
 Superpower: being able to answer "How did it get like this?" for an
 individual object.
@@ -181,17 +216,7 @@ stream route. You get auditing for free, plus real-world proof of use.
 
 - Headstart: https://pinboard.in/u:cwinters/t:eventsourcing
 
-### 9. Validation
-
-You’d be surprised how many people forget about this until later...
-
-Level up: Real world is __messy__; easily define validation in the
-context of other actors. ("Address not required if account being
-created with gift certificate order")
-
-### Affecting users
-
-### 12. Undo
+### Undo
 
 Superpower: enable users to undo actions. They will LOVE YOU.
 
@@ -199,13 +224,15 @@ Bulk import? You need a bulk undo.
 
 Hint: this gets easier with event sourcing.
 
-### xx. Act-as a user (admin)
+### Feature flags and kill switches
 
-Why file this here?
+* Can you flip a switch and make your system read-only?
 
-### Affecting Operations
+* Great presentation on this and other stuff from Kellan Elliot-McCrea
 
-### 5. Classify and contextualize errors
+
+
+### Classify and contextualize errors
 
 Enable reporting on frequency against transaction type as well as
 search. And bundle up context when reporting.
@@ -217,6 +244,53 @@ recent user activity, recent transaction activity...
 - You’ll never do it after you write the code that generates it.
 - Easy to get carried away, but still...
 
+### Lightning
+
+* Validation
+* Act-as-user for internal admins and customer support
+* Authen/Authz
+* Extract metrics via API: generic performance as well as performance
+  specific for your app (Carol's example from devopsdays)
+* Schema updates
+* Enable caching
+* Version internal dependencies to enable change
+* URI creation
+* Serialization and marshalling
+* Start production sequences at 1000 so have an easy 'this is special'
+  hook (id < 1000). (REI: Outlet items all are $xx.78 -- Huffman
+  Coding in the Perl/Larry Wall sense)
+* Avoid 'magic' values your platform might have (woe be the user with
+  ID 4 in a ruby system...)
+* Timezones!
+* "It's easier to make a stream system batch than make a batch system stream." (@dehora)
+
+### References
+
+David Copeland, ["Production is all that matters"](http://www.naildrivin5.com/blog/2013/06/16/production-is-all-that-matters.html)
+
+Kellan Elliott-McCrea, [Optimized for Change, Architecture at Etsy](http://www.infoq.com/presentations/Etsy)
+
+Michael Nygard, [Release It!](http://amazon.com/Release-It-Production-Ready-Pragmatic-Programmers/dp/0978739213/)
+
+Adam Wiggins, [Twelve-factor app](http://12factor.net/)
+
+
+## Other notes
+
+### 9. Validation
+
+You’d be surprised how many people forget about this until later...
+
+Level up: Real world is __messy__; easily define validation in the
+context of other actors. ("Address not required if account being
+created with gift certificate order")
+
+### Affecting users
+
+### xx. Act-as a user (admin)
+
+Why file this here?
+
 ### 4. Know when things are breaking
 
 If you don't know when things are going wrong you can't fix them until
@@ -226,8 +300,6 @@ Combine system thresholds, application thresholds (domain!), and
 affordances to let humans use their smarts.
 
 ### Others
-
-
 
 ### 10. Versioning
 
@@ -309,13 +381,6 @@ object state leaking out?
 2. Timezones!
 3. Can you flip a switch and make your system read-only?
 4. "It's easier to make a stream system batch than make a batch system stream." (@dehora)
-
-### References
-
-- Michael Nygard, [Release It!](http://amazon.com/Release-It-Production-Ready-Pragmatic-Programmers/dp/0978739213/)
-- Adam Wiggins, [Twelve-factor app](http://12factor.net/)
-- David Copeland, ["Production is all that matters"](http://www.naildrivin5.com/blog/2013/06/16/production-is-all-that-matters.html)
-
 
 ## 2014-03-25 Unretrofittable: start your project off right  - Pittsburgh Techfest
 
