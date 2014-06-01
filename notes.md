@@ -44,11 +44,11 @@
 
 ## Structure
 
-* Story (5 min)
-* Usable system (10 min)
-* Auditing + undo (5 min)
-* Classify errors (5 min)
-* Lightning (5 min)
+* Story (4 min)
+* Feature flags and kill switches (3 min)
+* Usable system (7 min)
+* Auditing + undo (7 min)
+* Lightning (including classify errors) (7 min)
 
 ## Themes
 
@@ -135,21 +135,71 @@ resilient to change... malleable and resilient?
 
 ^^^^
 
+### Feature flags and kill switches
+
+Feature flags:
+
+Poll: who knows what they are? How many people use them?
+
+* (Mostly) compile/build time setting that controls whether a feature
+  is active or accessible
+
+* Timing features in releases is harder than they tell you in books.
+
+* Dependencies usually aren't this bad (crazy graph), but they can be
+  tricky. Feature X may require an update to a database table but
+  Feature Y also needs to update it, and the updates need to be done
+  at the same time.
+
+* You don't have to roll your own (Flip, Setler, Togglz); may even be
+  able use third party runtime A/B testing services for lightweight
+  version (Optimizely)
+
+* Having part of a feature's code released is okay! (Koan: Is a
+  feature even partially released if it cannot be used?)
+
+* It can lead to uglier code, but not as much if you do it from the
+  beginning and build abstractions -- for example, what if you made
+  template loading conditional on one or more feature flags?
+
+* Great presentation on this (and other ways to handle change) from
+  Kellan Elliot-McCrea
+
+Side effects:
+
+* Release more often since you don't have less need to queue up
+  features. Releasing more often means smaller changes means less risk
+  means more experimenting.
+* Open up possibility of partial releases (A/B testing) and analysis.
+
+
+Related, kill switch:
+
+* Michael Nygard refers to part of this functionality as a Circuit
+  Breaker
+
+* Runtime setting that turns off functionality due to disruption --
+  credit card processor went down, some backend system has collapsed
+  and we don't want to continue throwing traffic at it, etc. Results
+  can be reduced functionality, or may even be hidden to user (orders
+  are put into a queue and not touched).
+
+* Example -- be able to toggle a switch and make your system
+  read-only? This could help you work around database shortcomings
+  (MySQL 5.5, how do substantial systems use this!?) by ensuring that
+  you can keep your app up during blocking schema changes.
+
+Side-effects:
+
+* Involve folks from other areas of the business in deciding what
+  happens if dependencies fail. Vs just (shrug)
+
+
 ### Create a usable system
 
 One command to create a system with real(-ish) data.
 
 This is probably one of the biggest things you can do. Why?
-
-=> New people start up quickly.
-
-=> Encourages experimentation
-
-=> Domain experts can define and maintain data
-
-=> Salespeople can create and customize demos.
-
-=> Your users can create demos with their own data.
 
 The hard part in this is usually the real(-ish) data requirement, even
 though it sounds easy.
@@ -168,8 +218,7 @@ Data that are too complex and hard to recreate will give you pain
 early. In an ideal world that pain will induce you to change, but most
 often it means you just don't do it.
 
-"If it hurts, do it more often."
-[Martin Fowler](http://martinfowler.com/bliki/FrequencyReducesDifficulty.html)
+Fowler: "If it hurts, do it more often."
 
 Protip: Users don't think in normalized database tables. They don't
 care about efficiency, or query planners. They care a little bit about
@@ -204,75 +253,160 @@ and tools.
 => Benefit: your users will help maintain your data, and it becomes a
 common language
 
-### Auditing, kinda
+Side effects:
 
-Superpower: being able to answer "How did it get like this?" for an
-individual object.
+* Quick startup for new hires or changing teams. (Which means people
+  can change teams more often!)
+* Encourages experimentation
+* Domain experts define and maintain data
+* Sales + marketing can create and customize demos
+* Your users can create demos with their own data
 
-=> Can lead to replay
 
-Consider a per-object event log, even if you don’t go the full event
-stream route. You get auditing for free, plus real-world proof of use.
+### Auditing
+
+(wat) (skeptical baby)
+
+There aren't many terms that evoke enterprise software more than
+"auditing".
+
+But auditing can lead to some amazing side effects that can make lots
+of people (including you) extremely happy.
+
+The idea of an audit trail is to be able to answer "How did this thing
+get this way?" at any point in its history. Who created it and what
+did they define, who updated it with what data and when? Depending on
+how detailed they can get they can be invluable for support staff,
+though reciting back to a user the set of actions a user he took may
+give your organization a Big Brother tinge.
+
+Most frameworks that help with auditing try and hook into your
+persistence scheme. This is attractive because you're leveraging a
+tool you already use to implement something orthogonal -- this is a
+big reason we use frameworks!
+
+These things can work decently well, but they can also resist
+refactoring -- how can you represent the history of a logical record
+when you change the physical representation of it (move columns,
+remove/rename tables)? It may also be difficult to separate the
+audited actions a user takes from side effects of those actions -- for
+example, if I decide to use a gift card when checking out from Amazon
+it needs to not only put that in my shopping cart, but also draw that
+amount down from some record somewhere else. And what if I only use
+part of the gift card and Amazon has to store the remainder for later?
+
+Maybe it's this separation of logical record from physical storage
+that gives us the problem. A software project without an ORM is like a
+project without code. We're so used to echoing our database structure
+to our users that it's hard to think of another way of doing things.
+
+Put another way, traditional auditing mechanisms record the results of
+the actions. But I think we're more interested in recording the
+actions themselves. So why don't do we do that? Similar to the tack in
+loading data into a system, we can attach 'who' and 'when' and 'from
+where' metadata about these actions.
+
+We'd then have a list of actions we can take to put the system in any
+state we want. And by pesisting this list we have a set of real-world
+data against which we can test changes to our ideas and
+implementations of how the system processes actions.
+
+<<< need solid example of testing changes with real data >>>
 
 - Headstart: https://pinboard.in/u:cwinters/t:eventsourcing
 
 ### Undo
 
-Superpower: enable users to undo actions. They will LOVE YOU.
+Lastly, we'll focus on an activity that's almost entirely end-user
+focused. Undo.
 
-Bulk import? You need a bulk undo.
+Users have come to expect undo at the small scale, but not at the
+large. So undoing a font change or typing should just be there.
 
-Hint: this gets easier with event sourcing.
+But being able to undo an order placement, or a hospital admission, or
+an import of a full school of students...
 
-### Feature flags and kill switches
+That's just magic. The sort of magic that users will LOVE YOU
+for. People flip out that they can undo gmail deletions. What if they
+accidentally import a spreadsheet of 500 students to the wrong school?
 
-* Can you flip a switch and make your system read-only?
+Users expect undo at the action level and don't care about side
+effects in your system. Undo should mean it's like the action never
+happened.
 
-* Great presentation on this and other stuff from Kellan Elliot-McCrea
+There are tricks to doing this, and they depend on the type of
+action. Both are far easier to implement at the beginning.
 
+__Grace period__: I place an order, but I can cancel that order in the
+half hour after it's been placed. (Efficiencies in logistics can
+actually make this more difficult, ask Amazon.)
 
+On the surface this may seem simple -- just do nothing until the grace
+period is up! (I like solutions where we do nothing.)
 
-### Classify and contextualize errors
+But in reality you want to do everything EXCEPT the final action. For
+example, you need to ensure your validation logic still fires because
+you don't want the user to submit the order and walk away only to get
+a "Your order is invalid" email a half hour later. This might be
+tricky because validation logic may depend on some of the data being
+persisted. (Transactions may fix that... as long as you can depend on
+them and they're used consistently.)
 
-Enable reporting on frequency against transaction type as well as
-search. And bundle up context when reporting.
-
-Context? Deployment (config), system (disk, load), network, user info,
-recent user activity, recent transaction activity...
-
-- Answer questions like: How often do accounts get locked? Does it happen more on certain days of the week? Times of day?
-- You’ll never do it after you write the code that generates it.
-- Easy to get carried away, but still...
+__Command/Event__: If you're able to model changes to your system as
+user events to make all those other things happen, it's much easier to
+create reverse events that perform the undo. It's still not trivial --
+bulk operations require you to track all the objects touched as a
+result. But it gives you another handle.
 
 ### Lightning
 
-* Validation
-* Act-as-user for internal admins and customer support
-* Authen/Authz
-* Extract metrics via API: generic performance as well as performance
-  specific for your app (Carol's example from devopsdays)
-* Schema updates
-* Enable caching
-* Version internal dependencies to enable change
-* URI creation
-* Serialization and marshalling
 * Start production sequences at 1000 so have an easy 'this is special'
   hook (id < 1000). (REI: Outlet items all are $xx.78 -- Huffman
   Coding in the Perl/Larry Wall sense)
 * Avoid 'magic' values your platform might have (woe be the user with
   ID 4 in a ruby system...)
+* Extract metrics via API: generic performance as well as performance
+  specific for your app (Carol's example from devopsdays)
+* Classify and contextualize errors - enable that intent you've
+  exposed via your user actions to people troubleshooting later
+  on. And wrap context around errors such that you can figure out what
+  else was going on when the user was trying to complete her
+  action. How easy is it to search solutions for errors raised by a
+  database system? AMAZINGLY easy. That's because they assign codes
+  and classifications to them. This is a must-do at the beginning,
+  __YOU WILL NEVER CATEGORIZE ERRORS LATER__
+* Validation
+* Act-as-user for internal admins and customer support
+* Authen/Authz
+* Schema updates
+* Caching hooks everywhere
+* Version internal dependencies to enable change
+* URI creation
+* Serialization and marshalling
 * Timezones!
 * "It's easier to make a stream system batch than make a batch system stream." (@dehora)
 
 ### References
 
+Daily WTF - [The Enterprise Dependency](http://thedailywtf.com/Articles/The-Enterprise-Dependency.aspx)
+
 David Copeland, ["Production is all that matters"](http://www.naildrivin5.com/blog/2013/06/16/production-is-all-that-matters.html)
 
 Kellan Elliott-McCrea, [Optimized for Change, Architecture at Etsy](http://www.infoq.com/presentations/Etsy)
 
+Martin Fowler,
+[Feature Toggle](http://martinfowler.com/bliki/FeatureToggle.html);
+[Frequency Reduces Difficulty](http://martinfowler.com/bliki/FrequencyReducesDifficulty.html),
+[Event Sourcing](http://martinfowler.com/eaaDev/EventSourcing.html) is quite meaty and has lots of other pointers to things like [Parallel Model](http://martinfowler.com/eaaDev/ParallelModel.html) and [Retroactive Event](http://martinfowler.com/eaaDev/RetroactiveEvent.html)
+
 Michael Nygard, [Release It!](http://amazon.com/Release-It-Production-Ready-Pragmatic-Programmers/dp/0978739213/)
 
 Adam Wiggins, [Twelve-factor app](http://12factor.net/)
+
+Photos:
+
+* [Emergency Stop Button](https://www.flickr.com/photos/dumbledad/3225255407)  ([cc attribution](https://creativecommons.org/licenses/by/2.0/))
+* [Old Light Switches](https://www.flickr.com/photos/paulcross/4333070249) ([cc attribution](https://creativecommons.org/licenses/by/2.0/))
 
 
 ## Other notes
