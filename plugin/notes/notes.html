@@ -11,22 +11,22 @@
       }
 
       #notes {
-        font-size: 24px;
+        font-size: 30px;
         width: 640px;
         margin-top: 5px;
         clear: left;
       }
 
       #wrap-current-slide {
-        width: 640px;
-        height: 512px;
+        width: 448px;
+        height: 358px;
         float: left;
         overflow: hidden;
       }
 
       #current-slide {
-        width: 1280px;
-        height: 1024px;
+        width: 448px;
+        height: 358px;
         border: none;
 
         -webkit-transform-origin: 0 0;
@@ -34,25 +34,19 @@
           -ms-transform-origin: 0 0;
            -o-transform-origin: 0 0;
             transform-origin: 0 0;
-
-        -webkit-transform: scale(0.5);
-           -moz-transform: scale(0.5);
-          -ms-transform: scale(0.5);
-           -o-transform: scale(0.5);
-            transform: scale(0.5);
       }
 
       #wrap-next-slide {
         width: 448px;
         height: 358px;
-        float: left;
+        float: right;
         margin: 0 0 0 10px;
         overflow: hidden;
       }
 
       #next-slide {
-        width: 1280px;
-        height: 1024px;
+        width: 448px;
+        height: 358px;
         border: none;
 
         -webkit-transform-origin: 0 0;
@@ -60,12 +54,6 @@
           -ms-transform-origin: 0 0;
            -o-transform-origin: 0 0;
             transform-origin: 0 0;
-
-        -webkit-transform: scale(0.35);
-           -moz-transform: scale(0.35);
-          -ms-transform: scale(0.35);
-           -o-transform: scale(0.35);
-            transform: scale(0.35);
       }
 
       .slides {
@@ -147,13 +135,15 @@
     </script>
 
     <div id="wrap-current-slide" class="slides">
-      <script>document.write( '<iframe width="1280" height="1024" id="current-slide" src="'+ notesCurrentSlideURL +'"></iframe>' );</script>
+      <script>document.write( '<iframe width="448" height="356" id="current-slide" src="'+ notesCurrentSlideURL +'"></iframe>' );</script>
     </div>
 
     <div id="wrap-next-slide" class="slides">
-      <script>document.write( '<iframe width="640" height="512" id="next-slide" src="'+ notesNextSlideURL +'"></iframe>' );</script>
+      <script>document.write( '<iframe width="448" height="356" id="next-slide" src="'+ notesNextSlideURL +'"></iframe>' );</script>
       <span>UPCOMING:</span>
     </div>
+
+    <div id="notes"></div>
 
     <div class="time">
       <div class="clock">
@@ -166,7 +156,6 @@
       </div>
     </div>
 
-    <div id="notes"></div>
 
     <script src="../../plugin/markdown/marked.js"></script>
     <script>
