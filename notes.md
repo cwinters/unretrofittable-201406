@@ -173,7 +173,7 @@ system.)
 True, true. But could I sit a user of your domain down in front of
 fixtures and ask her to edit them?
 
-Of course not. Fixtures exist to stock you system with the bare
+Of course not. Fixtures exist to stock your system with the bare
 minimum of data to get it working, and they work on a table by table
 basis.
 
@@ -370,10 +370,12 @@ Photos:
 
 * [Au Lapin Agile](https://www.flickr.com/photos/auselen/4155725406) ([cc by-sa](https://creativecommons.org/licenses/by-sa/2.0/))
 * [Emergency Stop Button](https://www.flickr.com/photos/dumbledad/3225255407)  ([cc by](https://creativecommons.org/licenses/by/2.0/))
+* [Many Tables](https://www.flickr.com/photos/stefanointintoli/9996084176) ([cc by-nd](https://creativecommons.org/licenses/by-nd/2.0/))
 * [Old Light Switches](https://www.flickr.com/photos/paulcross/4333070249) ([cc by](https://creativecommons.org/licenses/by/2.0/))
 * [Spiders leaving the cocoon](https://www.flickr.com/photos/photophilde/2518101974) ([cc by-sa](https://creativecommons.org/licenses/by-sa/2.0/))
 * [Zebras](https://www.flickr.com/photos/schinkerj/3865922295) ([cc by-nc-sa](https://creativecommons.org/licenses/by-nc-sa/2.0/))
 
+* [
 ## Other notes
 
 ### 9. Validation
