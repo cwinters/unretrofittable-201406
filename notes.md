@@ -81,59 +81,22 @@ and the sheer joy of productivity (because there's nothing to work
 around) that I won't remember all the painful lessons from past
 systems.
 
-I think one of the reasons this happens is because we get separated
-from our actual job. We tell ourselves our job is about learning, or
-about building, or even about making money. And those are all great,
-and in fact they're one of the draws of the work. But they're not the
-work.
+There are probably lots of reasons for this, but that's another
+talk. The main one I want to talk about is our levels of abstraction
+and some of the side effects of working with them at the right and
+wrong levels.
 
-The work is about solving problems -- and more importantly, __someone
-else's problems__.
+We all love "agile" (not necessarily Agile). A good deal of agile is
+geared toward making you [the developer] acutely aware of everybody's
+joy and pain and tightening the feedback cycle between your awareness
+of and influence on these things.
 
-Our work is to help other people be awesome.
+One of the main levers we have to do this technically is to make our
+systems easier to change.
 
-Other people don't think of problems like we do.
-
-They think of our systems like most people think of a hammer. Or a
-shovel. Or a popcorn popper.
-
-Worse, they think of our hammer as one that misses the nail every
-fifth time, or that our popper that only works with blue corn from
-Nebraska and breaks on minor upgrades, and why does it need to be
-upgraded, anyway?
-
-So the question I want to talk about is this: when we're starting a
-new system, how can I make this the best hammer? The hammer that
-people love to use. The hammer that's predictable. The hammer that
-helps us know when and how it's failing. The hammer that interoperates
-with every nail out there.
-
-Okay, that metaphor may be stretched a little thin.
-
-### What's our goal?
-
-We're going to talk about making your users happy. But also things you
-can do to make the jobs easier for the people who build, support, and
-sell your systems.
-
-That's too general though, how will we make this happen?
-
-The main way is to make it easy to change. Some things you may
-control, like shortening the feedback loop between an idea and someone
-using it. But others you don't, like market changes and operational
-outages. Software changes, for good reasons and bad.
-
-Easy to change also increases the opportunity for user
-empathy. Empathy was common theme at devopsdays last week: empathy
-with our co-workers, with other areas of the organization, with users.
-
-^^^^
-
-Meh... this sounds too lectur-ey. Is it needed? Maybe we just say
-we're focusing on making your system easy to change as well as
-resilient to change... malleable and resilient?
-
-^^^^
+Easy to change increases the opportunity for empathy. Empathy was
+common theme at devopsdays last week: empathy with our co-workers,
+with other areas of the organization, with users.
 
 ### Feature flags and kill switches
 
@@ -146,10 +109,10 @@ Poll: who knows what they are? How many people use them?
 
 * Timing features in releases is harder than they tell you in books.
 
-* Dependencies usually aren't this bad (crazy graph), but they can be
-  tricky. Feature X may require an update to a database table but
-  Feature Y also needs to update it, and the updates need to be done
-  at the same time.
+Dependencies usually aren't this bad (crazy graph), but they can be
+tricky. Feature X may require an update to a database table but
+Feature Y also needs to update it, and the updates need to be done at
+the same time.
 
 * You don't have to roll your own (Flip, Setler, Togglz); may even be
   able use third party runtime A/B testing services for lightweight
@@ -405,9 +368,11 @@ Adam Wiggins, [Twelve-factor app](http://12factor.net/)
 
 Photos:
 
-* [Emergency Stop Button](https://www.flickr.com/photos/dumbledad/3225255407)  ([cc attribution](https://creativecommons.org/licenses/by/2.0/))
-* [Old Light Switches](https://www.flickr.com/photos/paulcross/4333070249) ([cc attribution](https://creativecommons.org/licenses/by/2.0/))
-
+* [Au Lapin Agile](https://www.flickr.com/photos/auselen/4155725406) ([cc by-sa](https://creativecommons.org/licenses/by-sa/2.0/))
+* [Emergency Stop Button](https://www.flickr.com/photos/dumbledad/3225255407)  ([cc by](https://creativecommons.org/licenses/by/2.0/))
+* [Old Light Switches](https://www.flickr.com/photos/paulcross/4333070249) ([cc by](https://creativecommons.org/licenses/by/2.0/))
+* [Spiders leaving the cocoon](https://www.flickr.com/photos/photophilde/2518101974) ([cc by-sa](https://creativecommons.org/licenses/by-sa/2.0/))
+* [Zebras](https://www.flickr.com/photos/schinkerj/3865922295) ([cc by-nc-sa](https://creativecommons.org/licenses/by-nc-sa/2.0/))
 
 ## Other notes
 

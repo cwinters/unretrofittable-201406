@@ -2,144 +2,326 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
+<meta charset="utf-8">
 
-  <title>Unretrofittable: Starting projects off right</title>
+<title>Unretrofittable: Starting projects off right</title>
 
-  <meta name="description" content="Presentation from Pittsburgh Techfest 2014">
-  <meta name="author" content="Chris Winters">
+<meta name="description" content="Presentation from Pittsburgh Techfest 2014">
+<meta name="author" content="Chris Winters">
 
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-  <link rel="stylesheet" href="css/reveal.min.css">
-  <link rel="stylesheet" href="css/theme/solarized.css" id="theme">
+<link rel="stylesheet" href="css/reveal.min.css">
+<link rel="stylesheet" href="css/theme/sky.css" id="theme">
 
-  <!-- For syntax highlighting -->
-  <link rel="stylesheet" href="lib/css/zenburn.css">
+<!-- For syntax highlighting -->
+<link rel="stylesheet" href="lib/css/zenburn.css">
 
-  <!-- If the query includes 'print-pdf', include the PDF print sheet -->
-  <script>
-    if( window.location.search.match( /print-pdf/gi ) ) {
-      var link = document.createElement( 'link' );
-      link.rel = 'stylesheet';
-      link.type = 'text/css';
-      link.href = 'css/print/pdf.css';
-      document.getElementsByTagName( 'head' )[0].appendChild( link );
-    }
-  </script>
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+  if( window.location.search.match( /print-pdf/gi ) ) {
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = 'css/print/pdf.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  }
+</script>
 
-  <!--[if lt IE 9]>
-  <script src="lib/js/html5shiv.js"></script>
-  <![endif]-->
+<!--[if lt IE 9]>
+<script src="lib/js/html5shiv.js"></script>
+<![endif]-->
 </head>
 
 <body>
 
-  <div class="reveal">
+<div class="reveal">
 
-    <!-- Any section element inside of this container is displayed as a slide -->
-    <div class="slides">
-      <section>
-        <h1>Unretrofittable: Starting off right</h1>
-        <h3>Some choices are hard to (un|re)do...</h3>
-        <p>
-          Pittsburgh Techfest 2014
-          <br />
-          <small>Chris Winters (@cwinters)</small>
-        </p>
-      </section>
+  <!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+  <section>
+    <h1>Unretrofittable: Starting off right</h1>
+    <h3>Some abstractions are hard to (un|re)do...</h3>
+    <p>
+      Chris Winters (@cwinters)
+    </p>
+    <p>
+      Pittsburgh Techfest 2014
+    </p>
+  </section>
 
-      <section>
-        <h2>Things start out great...</h2>
-        <p>
-          Greenfield projects are the <b>best</b>
-        </p>
-      </section>
+  <section>
+    <h2>Things start out great</h2>
+    <p>
+      Greenfield projects are the <b>best</b>, right?
+    </p>
+    <aside class="notes">
+Starting a new project is one of my favorite things. So many things to
+play with, so much to discover.
+    </aside>
+  </section>
 
-      <section>
-        <img src="lib/images/oh_my_ive_done_it_again.jpg" />
-      </section>
+  <section>
+    <img src="lib/images/charlie_bucket_with_golden_ticket.jpg" />
+    <aside class="notes">
+It's a gift to be able to work on something new. How many people here
+have been on a new project in the last year? Ever?
 
-      <section>
-        <h2>What is our purpose?</h2>
-        <ul>
-          <li>Learn new stuff?</li>
-          <li>Build things?</li>
-          <li>Play with the new shiny?</li>
-        </ul>
-      </section>
+How about a new or rewritten subsystem?
+    </aside>
+  </section>
 
-      <section>
-        <img src="lib/images/how-about-no-bear.jpg" />
-      </section>
+  <section>
+    <h2>It all made sense at the time</h2>
 
-      <section>
-        <h2>Most often, we are tool makers</h2>
-        <p>...our product is not an end, it's a means</p>
-      </section>
+    <aside class="notes">
+It's a gift because I've made none of my usual mistakes yet, or
+encountered none of the troubling bugs, or run into difficult users,
+or interfaced with other terrible systems, or eased into one of the
+typical compromises.
 
-      <section>
-        <h2>Help others be awesome</h2>
-        <p>...our product is not an end, it's a means</p>
-      </section>
+All those things you do the more you're dirtied by the real world. And
+you do them for good reasons that make sense at the time.
+    </aside>
 
-      <section>
-        <h2>Helping others &#8649; understanding others</h2>
+  </section>
 
-        <br />
+  <section>
+    <img src="lib/images/oh_my_ive_done_it_again.jpg" />
 
-        <p>Agile aims to shrink the feedback loop between your
-        awareness and ability to influence</p>
-      </section>
+    <aside class="notes">
+So I will do all these things. And so will you. What's worse, I'll
+get so caught up in the learning, and the sheer joy of productivity
+that I won't remember all the painful lessons from past systems when I
+did those things.
+    </aside>
+  </section>
+
+  <section>
+    <h2>Does it matter why?</h2>
+    <img src="lib/images/tumbleweed_blowing.gif" />
+
+    <aside class="notes">
+There are probably lots of reasons for this, but that's another
+talk. The main one I want to talk about is our levels of abstraction
+and some of the side effects of working with them at the right and
+wrong levels.
+    </aside>
+
+  </section>
+
+  <section>
+    <h2>"agile" vs AGILE</h2>
+    <img src="lib/images/au_lapin_agile.jpg" />
+
+    <aside class="notes">
+We all love "agile" (though not necessarily Agile). A good deal of
+agile is geared toward making you the developer acutely aware of
+everybody's joy and pain and tightening the feedback cycle between
+your awareness of and influence on these things.
+    </aside>
+  </section>
 
 
+  <section>
+    <h2>Help others be awesome</h2>
+    <p>...what we do is a means, not an end.</p>
+  </section>
 
+  <section>
+    <img src="lib/images/spiders_from_cocoon.jpg" />
 
-      <section>
-        <h2>Remove everything that impedes empathy</h2>
-      </section>
+    <aside class="notes">
+One of the main levers we have to do this technically is to make our
+systems easier to change.
 
-    </div>
+Easy to change increases the opportunity for empathy. Empathy was
+common theme at devopsdays last week: empathy with our co-workers,
+with other areas of the organization, with users.
+    </aside>
+  </section>
 
-  </div>
+  <section>
+    <h2>Side effects</h2>
 
-  <script src="lib/js/head.min.js"></script>
-  <script src="js/reveal.min.js"></script>
+    <aside class="notes">
+      For the practices we'll discuss we'll also mention side
+      effects. Sometimes they can be the main benefit, sometimes
+      they're a risk or something to be mitigated, and sometimes the
+      side effects can lead to other side effects, or enable other
+      practices.
+    </aside>
+  </section>
 
-  <script>
+  <section>
+    <h2>Lever 1: Feature flags</h2>
 
-    // Full list of configuration options available here:
-    // https://github.com/hakimel/reveal.js#configuration
-    Reveal.initialize({
-      width: 1280,
-      height: 800,
-      controls: true,
-      progress: true,
-      history: true,
-      center: true,
+    <p>Setting controlling feature accessibility</p>
 
-      theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-      transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+    <aside class="notes">
+      Who's using them?
+    </aside>
+  </section>
 
-      // Parallax scrolling
-      // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
-      // parallaxBackgroundSize: '2100px 900px',
+  <section>
+    <h2>Why?</h2>
 
-      // Optional libraries used to extend on reveal.js
-      dependencies: [
-        { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-        { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-        { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-        { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-        { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-        { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
-      ]
-    });
+    <aside class="notes">
+      Timing features to releases is harder than you'd think,
+      particularly the older and larger your system gets. (Yes, this
+      is a good argument for lots of small systems. That's another
+      talk.)
+    </aside>
+  </section>
 
-  </script>
+  <section>
+    <img src="lib/images/daily_wtf_dependency_graph.png" />
+
+    <aside class="notes">
+Dependencies usually aren't this bad (crazy graph), but they can be
+tricky. Feature X may require an update to a database table but
+Feature Y also needs to update it, and the updates need to be done at
+the same time.
+
+BUT Feature X needs to be one two weeks before Feature Y.
+    </aside>
+  </section>
+
+  <section>
+    <h2>Thinking differently about features</h2>
+
+    <p>Full functionality vs not breaking</p>
+
+    <aside class="notes">
+Instead of thinking of features as a discrete set of files
+implementing a feature that get delievered (sory, "merged") at once,
+what if it were a set of changes that get delivered over time -- maybe
+even a long time -- but none of which break existing functionality?
+    </aside>
+  </section>
+
+  <section>
+    <h2>Not the prettiest...</h2>
+
+    <aside class="notes">
+      Most implementations can be kind of gross... See Kellan
+      Elliott-McCrea's presentation on Change at Etsy for an
+      example. (PHP, but still...)
+    </aside>
+  </section>
+
+  <section>
+    <h2>I'll just code that up...</h2>
+    <p>You don't have to! (Flip, Setler, Togglz)</p>
+
+    <aside class="notes">
+      May even be able to use third party runtime A/B testing services
+      for lightweight version.
+    </aside>
+  </section>
+
+  <section>
+    <h2>But I want clean!</h2>
+    <aside class="notes">
+      Having part of a feature's code released is okay! (Koan: is a
+      feature even partially released if it cannot be used?)
+    </aside>
+  </section>
+
+  <section>
+    <h2>Happy side effects</h2>
+
+    <p>Release more often; A/B testing</p>
+
+    <aside class="notes">
+      Releasing more often is good in and of itself. But it also means
+      you're releasing smaller changes, which are generally less
+      risky. Lowered risk increases development experimentation. And
+      that can bubble up the organization in great ways.
+    </aside>
+  </section>
+
+  <section>
+    <h2>Related: Kill switch</h2>
+
+    <p><b>Runtime</b> flag removing functionality due to
+    disruption</p>
+
+    <aside class="notes">
+      Credit card processor went down, some backend system has
+      collapsed and we don't want to continue throwing traffic at it,
+      etc. Results can be reduced functionality, or may even be hidden
+      to user (orders are put into a queue and not touched).
+    </aside>
+  </section>
+
+  <section>
+    <h2>Example: Read-only system</h2>
+
+    <p>Enabling schema change for broken databases</p>
+
+    <aside class="notes">
+      This could help you work around database shortcomings (MySQL
+      5.5, how do substantial systems use this!?) by ensuring that you
+      can keep your app up during blocking schema changes.
+    </aside>
+  </section>
+
+  <section>
+    <h2>Side effects</h2>
+
+    <p>&lt;discuss&rt;What actually happens when things
+    fail?&lt;/discuss&rt; vs (shrug)</p>
+
+    <aside class="notes">
+      Most of the time these discussions are much better handled by
+      other parts of the business, not you. Giving an easily
+      understood hook into the ability to turn things off leads to
+      discussions of what we should actually do when they're off.
+    </aside>
+  </section>
+
+</div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+
+<script>
+
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    width: 1280,
+    height: 800,
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+
+    theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+    transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+    // Parallax scrolling
+    // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+    // parallaxBackgroundSize: '2100px 900px',
+
+    // Optional libraries used to extend on reveal.js
+    dependencies: [
+      { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+    ]
+  });
+
+</script>
 
 </body>
 </html>
