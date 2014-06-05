@@ -343,7 +343,8 @@ result. But it gives you another handle.
 * Authen/Authz
 * Schema updates
 * Caching hooks everywhere
-* Version internal dependencies to enable change
+* Version internal dependencies to enable change (weight documentation
+  example)
 * URI creation
 * Serialization and marshalling
 * Timezones!
@@ -359,7 +360,7 @@ Kellan Elliott-McCrea, [Optimized for Change, Architecture at Etsy](http://www.i
 
 Martin Fowler,
 [Feature Toggle](http://martinfowler.com/bliki/FeatureToggle.html);
-[Frequency Reduces Difficulty](http://martinfowler.com/bliki/FrequencyReducesDifficulty.html),
+[Frequency Reduces Difficulty](http://martinfowler.com/bliki/FrequencyReducesDifficulty.html); [LMAX](http://martinfowler.com/articles/lmax.html);
 [Event Sourcing](http://martinfowler.com/eaaDev/EventSourcing.html) is quite meaty and has lots of other pointers to things like [Parallel Model](http://martinfowler.com/eaaDev/ParallelModel.html) and [Retroactive Event](http://martinfowler.com/eaaDev/RetroactiveEvent.html)
 
 Michael Nygard, [Release It!](http://amazon.com/Release-It-Production-Ready-Pragmatic-Programmers/dp/0978739213/)
