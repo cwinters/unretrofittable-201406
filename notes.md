@@ -44,10 +44,11 @@
 
 ## Structure
 
-* Story (4 min)
+* Story (5 min)
+* Usable system (8 min)
+* Auditing (6 min)
+* Undo (6 min)
 * Feature flags and kill switches (3 min)
-* Usable system (7 min)
-* Auditing + undo (7 min)
 * Lightning (including classify errors) (7 min)
 
 ## Themes
